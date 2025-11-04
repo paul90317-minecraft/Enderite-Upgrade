@@ -7,7 +7,8 @@
                 "description": "Enderite Upgrade",
                 "pack_format": 88
             }
-        }
+        },
+        "icon": "pack.png"
     },
     "resourcepack": {
         "outdir": "C:\\Users\\paul2\\AppData\\Roaming\\.minecraft\\resourcepacks\\enderite_upgrade",
@@ -16,6 +17,7 @@
                 "description": "Enderite Upgrade",
                 "pack_format": 69
             }
-        }
+        },
+        "icon": "pack.png"
     }
 }
