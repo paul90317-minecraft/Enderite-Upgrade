@@ -1,0 +1,18 @@
+{
+  "name": "enderite_upgrade",
+  "version": "1.0.0",
+  "description": "Enderite Upgrade",
+  "main": "dist/index.js",
+  "repository": "https://github.com/paul90317-minecraft/Enderite-Upgrade",
+  "author": "paul90317",
+  "license": "MIT",
+  "devDependencies": {
+    "ts-node": "^10.9.2",
+    "typescript": "^5.9.3"
+  },
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/index.js",
+    "dev": "ts-node src/index.ts"
+  }
+}

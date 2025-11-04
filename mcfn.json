@@ -1,0 +1,21 @@
+{
+    "namespace": "enderite_upgrade",
+    "datapack": {
+        "outdir": "C:\\Users\\paul2\\AppData\\Roaming\\.minecraft\\saves\\Datapack Test\\datapacks\\enderite_upgrade",
+        "mcmeta": {
+            "pack": {
+                "description": "Enderite Upgrade",
+                "pack_format": 88
+            }
+        }
+    },
+    "resourcepack": {
+        "outdir": "C:\\Users\\paul2\\AppData\\Roaming\\.minecraft\\resourcepacks\\enderite_upgrade",
+        "mcmeta": {
+            "pack": {
+                "description": "Enderite Upgrade",
+                "pack_format": 69
+            }
+        }
+    }
+}
