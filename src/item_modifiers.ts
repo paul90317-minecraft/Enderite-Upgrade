@@ -91,8 +91,8 @@ function equipment(armor: number, slot: 'chest' | 'head' | 'feet' | 'legs'): ATT
     },
     {
       type: 'minecraft:movement_speed',
-      operation: 'add_value',
-      amount: 0.01,
+      operation: 'add_multiplied_base',
+      amount: 0.1,
       id: random_uuid.gen(),
       slot: slot
     }
@@ -117,7 +117,7 @@ function weapon(damage: number, speed: number): ATTRIBUTE_MODIFIER[] {
     },
     {
       type: 'minecraft:block_break_speed',
-      operation: 'add_value',
+      operation: 'add_multiplied_total',
       amount: 1,
       id: random_uuid.gen(),
       slot: 'mainhand'
@@ -135,16 +135,16 @@ function weapon(damage: number, speed: number): ATTRIBUTE_MODIFIER[] {
 const elytra_attributes = [
   {
     type: 'minecraft:fall_damage_multiplier',
-    amount: -0.2,
+    amount: -0.5,
     id: random_uuid.gen(),
-    operation: 'add_value',
+    operation: 'add_multiplied_total',
     slot: 'chest'
   },
   {
     type: 'minecraft:safe_fall_distance',
-    amount: 3,
+    amount: 1,
     id: random_uuid.gen(),
-    operation: 'add_value',
+    operation: 'add_multiplied_total',
     slot: 'chest'
   }
 ] as ATTRIBUTE_MODIFIER[]
