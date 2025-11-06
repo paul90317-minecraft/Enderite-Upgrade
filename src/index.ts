@@ -1,4 +1,4 @@
-import { coord, Data, data, datapack, execute, ITEM, item, ITEMS, kill, minecraft, nbt, raw, ret, say, sel, summon } from '@paul90317/mcfn.ts'
+import { Data, data, execute, item, kill, minecraft, nbt, raw, ret, say, sel, summon } from 'mcfn.ts'
 import './recipes'
 import { custom_data } from './custom_data'
 import { assets, ENDERITE_ITEMS, upgradable_items, NETHERITE_ITEMS, upgradable_tag } from './assets'
@@ -47,7 +47,7 @@ const nbts = {
 
 minecraft.tick(()=>{
     const item_nearest = sel('@e', {
-        excl_nbt: nbts.is_enderite,
+        excl_nbts: [nbts.is_enderite],
         type: 'item',
         sort: 'nearest',
         limit: 1,
@@ -56,7 +56,7 @@ minecraft.tick(()=>{
 
     execute.as(sel('@e', {
         type: 'item',
-        nbt: nbts.enderite_ingot
+        nbts: [nbts.enderite_ingot]
     })).at(sel('@s'))
     .if(item.slot(item_nearest, 'container.0')
         .matches(item(upgradable_tag))).run(()=>{
@@ -77,8 +77,8 @@ minecraft.tick(()=>{
 
     //
     const elytra_nearest = sel('@e', {
-        nbt: nbts.is_elytra,
-        excl_nbt: nbts.is_armored_elytra,
+        nbts: [nbts.is_elytra],
+        excl_nbts: [nbts.is_armored_elytra],
         type: 'item',
         sort: 'nearest',
         limit: 1,
@@ -86,8 +86,8 @@ minecraft.tick(()=>{
     })
     execute.as(sel('@e', {
         type: 'item',
-        nbt: nbts.is_chestplate,
-        excl_nbt: nbts.is_armored_elytra
+        nbts: [nbts.is_chestplate],
+        excl_nbts: [nbts.is_armored_elytra]
     })).at(sel('@s'))
     .if(elytra_nearest)
     .run(() => {
@@ -106,10 +106,14 @@ minecraft.tick(()=>{
     })
 
     execute.as(sel('@a')).if(item.slot(sel('@s'), 'armor.chest').matches(item('netherite_chestplate', {
-        'custom_data': custom_data.enderite_armored_elytra
+        incl: {
+            custom_data: custom_data.enderite_armored_elytra
+        }
     }))).run(()=>item.slot(sel('@s'), 'armor.chest').modify(modifiers.switch_to.elytra), true)
     execute.as(sel('@a')).if(item.slot(sel('@s'), 'player.cursor').matches(item('elytra', {
-        'custom_data': custom_data.enderite_armored_elytra
+        incl: {
+            custom_data: custom_data.enderite_armored_elytra
+        }
     }))).run(()=>item.slot(sel('@s'), 'player.cursor').modify(modifiers.switch_to.chestplate), true)
 
 })

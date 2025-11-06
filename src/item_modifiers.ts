@@ -1,4 +1,4 @@
-import { ATTRIBUTE_MODIFIER, COMPONENTS, config, datapack, ITEM_ATTRIBUTES, ITEM_SLOTS, nbt, NBTBase, TEXT } from "@paul90317/mcfn.ts"
+import { AttributeModifierObject, DataComponentTypeID, config, datapack, AttributeID, ItemSlotID, nbt, NBTBase, TextObject } from "mcfn.ts"
 import { assets, ENDERITE_ITEMS, upgradable_items, NETHERITE_ITEMS } from "./assets"
 import { custom_data } from "./custom_data"
 
@@ -9,88 +9,88 @@ const random_uuid = {
   }
 }
 
-function upgrade(_id: NETHERITE_ITEMS, max_damage: number, attribute_modifiers?: ATTRIBUTE_MODIFIER[], equippable?: object) {
+function upgrade(_id: NETHERITE_ITEMS, max_damage: number, attribute_modifiers?: AttributeModifierObject[], equippable?: object) {
     const id = _id.replace('netherite', 'enderite')! as ENDERITE_ITEMS
     const item_name_text = id
     .match(/[a-z0-9]+/g)?.map(x => {
       return x[0]?.toUpperCase() + x.slice(1)
     }).join(' ')
 
-    const components: Partial<Record<`minecraft:${COMPONENTS}`, any>> = {
-        'minecraft:custom_data': custom_data.enderite_upgrade,
-        'minecraft:item_model': assets.item_models[id],
-        "minecraft:item_name": {
+    const components: Partial<Record<DataComponentTypeID, any>> = {
+        'custom_data': custom_data.enderite_upgrade,
+        'item_model': assets.item_models[id],
+        "item_name": {
             text: item_name_text!,
             color: 'dark_purple',
             italic: false
-        } as TEXT,
-        'minecraft:attribute_modifiers': attribute_modifiers,
-        "minecraft:equippable": equippable,
-        'minecraft:max_damage': max_damage,
-        "minecraft:damage_resistant": {
-          "types": "#minecraft:is_fire"
+        } as TextObject,
+        'attribute_modifiers': attribute_modifiers,
+        "equippable": equippable,
+        'max_damage': max_damage,
+        "damage_resistant": {
+          "types": "#is_fire"
         }
     }
 
     return datapack.item_modifier({
-        function: 'minecraft:set_components',
+        function: 'set_components',
         components
     })
 }
 
 function upgrade_armored_elytra() {
-    const components: Partial<Record<`minecraft:${COMPONENTS}`, any>> = {
-        'minecraft:custom_data': custom_data.enderite_armored_elytra,
-        'minecraft:item_model': assets.item_models.enderite_armored_elytra,
-        "minecraft:item_name": {
+    const components: Partial<Record<DataComponentTypeID, any>> = {
+        'custom_data': custom_data.enderite_armored_elytra,
+        'item_model': assets.item_models.enderite_armored_elytra,
+        "item_name": {
             text: "Enderite Armored Elytra",
             color: 'dark_purple',
             italic: false
-        } as TEXT,
-        'minecraft:attribute_modifiers': [
+        } as TextObject,
+        'attribute_modifiers': [
           ...equipment(8, 'chest'), ...elytra_attributes
         ],
-        "minecraft:equippable": {
+        "equippable": {
           slot: "chest",
           asset_id: assets.equipments.armored_elytra
       },
-      'minecraft:max_damage': 1228,
-      "minecraft:damage_resistant": {
-        "types": "#minecraft:is_fire"
+      'max_damage': 1228,
+      "damage_resistant": {
+        "types": "#is_fire"
       }
     }
 
     return datapack.item_modifier({
-        function: 'minecraft:set_components',
+        function: 'set_components',
         components
     })
 }
 
-function equipment(armor: number, slot: 'chest' | 'head' | 'feet' | 'legs'): ATTRIBUTE_MODIFIER[] {
+function equipment(armor: number, slot: 'chest' | 'head' | 'feet' | 'legs'): AttributeModifierObject[] {
   return [
     {
-      type: 'minecraft:armor',
+      type: 'armor',
       operation: 'add_value',
       amount: armor,
       id: random_uuid.gen(),
       slot: slot
     },
     {
-      type: 'minecraft:armor_toughness',
+      type: 'armor_toughness',
       operation: 'add_value',
       amount: 6,
       id: random_uuid.gen(),
       slot: slot
     },
     {
-      type: 'minecraft:knockback_resistance',
+      type: 'knockback_resistance',
       operation: 'add_value',
       amount: 0.2,
       id: random_uuid.gen(),
       slot: slot
     },
     {
-      type: 'minecraft:movement_speed',
+      type: 'movement_speed',
       operation: 'add_multiplied_base',
       amount: 0.1,
       id: random_uuid.gen(),
@@ -99,31 +99,31 @@ function equipment(armor: number, slot: 'chest' | 'head' | 'feet' | 'legs'): ATT
   ]
 }
 
-function weapon(damage: number, speed: number): ATTRIBUTE_MODIFIER[] {
+function weapon(damage: number, speed: number): AttributeModifierObject[] {
   return [
     {
-      type: 'minecraft:attack_damage',
+      type: 'attack_damage',
       operation: 'add_value',
       amount: damage,
       id: random_uuid.gen(),
       slot: 'mainhand'
     },
     {
-      type: 'minecraft:attack_speed',
+      type: 'attack_speed',
       operation: 'add_value',
       amount: speed,
       id: random_uuid.gen(),
       slot: 'mainhand'
     },
     {
-      type: 'minecraft:block_break_speed',
+      type: 'block_break_speed',
       operation: 'add_multiplied_total',
       amount: 1,
       id: random_uuid.gen(),
       slot: 'mainhand'
     },
     {
-      type: 'minecraft:entity_interaction_range',
+      type: 'entity_interaction_range',
       operation: 'add_value',
       amount: 1,
       id: random_uuid.gen(),
@@ -134,24 +134,24 @@ function weapon(damage: number, speed: number): ATTRIBUTE_MODIFIER[] {
 
 const elytra_attributes = [
   {
-    type: 'minecraft:fall_damage_multiplier',
+    type: 'fall_damage_multiplier',
     amount: -0.5,
     id: random_uuid.gen(),
     operation: 'add_multiplied_total',
     slot: 'chest'
   },
   {
-    type: 'minecraft:safe_fall_distance',
+    type: 'safe_fall_distance',
     amount: 1,
     id: random_uuid.gen(),
     operation: 'add_multiplied_total',
     slot: 'chest'
   }
-] as ATTRIBUTE_MODIFIER[]
+] as AttributeModifierObject[]
 
 export const modifiers = {
   consume_one: datapack.item_modifier({
-    "function": "minecraft:set_count",
+    "function": "set_count",
     "count": -1,
     "add": true
   }),
@@ -184,12 +184,12 @@ export const modifiers = {
   enderite_armored_elytra: upgrade_armored_elytra(),
   switch_to: {
     elytra: datapack.item_modifier({
-      function: "minecraft:set_item",
-      item: "minecraft:elytra",
+      function: "set_item",
+      item: "elytra",
     }),
     chestplate: datapack.item_modifier({
-      function: "minecraft:set_item",
-      item: "minecraft:netherite_chestplate",
+      function: "set_item",
+      item: "netherite_chestplate",
     })
   }
 }

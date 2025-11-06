@@ -11,8 +11,9 @@
     "typescript": "^5.9.3"
   },
   "scripts": {
-    "build": "tsc",
-    "start": "node dist/index.js",
-    "dev": "ts-node src/index.ts"
+    "build": "ts-node src/index.ts"
+  },
+  "dependencies": {
+    "mcfn.ts": "^1.0.2"
   }
 }

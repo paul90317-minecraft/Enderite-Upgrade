@@ -1,4 +1,4 @@
-import { datapack, TEXT } from '@paul90317/mcfn.ts'
+import { datapack, TextObject } from 'mcfn.ts'
 import { custom_data } from './custom_data'
 import { assets } from './assets'
 
@@ -23,7 +23,7 @@ datapack.recipe({
                 text: "Enderite Ingot",
                 color: 'dark_purple',
                 italic: false
-            } as TEXT,
+            } as TextObject,
             "minecraft:item_model": assets.item_models.enderite_ingot,
             "minecraft:damage_resistant": {
                 types: "#minecraft:is_fire"

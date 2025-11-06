@@ -1,5 +1,4 @@
-import { datapack, ItemModel, ITEMS, Model, resourcepack, Texture } from '@paul90317/mcfn.ts'
-import { tags } from '@paul90317/mcfn.ts/dist/core/tag'
+import { datapack, ItemModel, Model, resourcepack, Texture } from 'mcfn.ts'
 
 export const upgradable_items = [
     'netherite_axe',

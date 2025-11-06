@@ -1,4 +1,4 @@
-import { nbt, config } from "@paul90317/mcfn.ts";
+import { nbt, config } from "mcfn.ts";
 
 
 export const custom_data = {
